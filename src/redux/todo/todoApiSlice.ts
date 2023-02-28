@@ -3,7 +3,7 @@ import { IAddTodo, ITodo, IUpdateStatus } from '../../interface/ITodo';
 import { API_URL } from '../../services/apiUrl';
 
 const todoApiSlice = createApi({
-    reducerPath: 'todApiSlice',
+    reducerPath: 'todoApiSlice',
     baseQuery: fetchBaseQuery({
         baseUrl: `${API_URL}/todo`,
     }),
