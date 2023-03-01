@@ -16,9 +16,13 @@ export const TodoList: React.FC = () => {
       </div>
       <ul className={style.todo_list}>
         {!isLoading ? (
-          data?.todoList?.map((todo, index) => (
-            <TodoItem key={todo._id} {...todo} index={index + 1} />
-          ))
+          data?.todoList?.length ? (
+            data?.todoList?.map((todo, index) => (
+              <TodoItem key={todo._id} {...todo} index={index + 1} />
+            ))
+          ) : (
+            <>...no todo in lists</>
+          )
         ) : (
           <>...loading</>
         )}

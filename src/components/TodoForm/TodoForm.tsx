@@ -92,7 +92,7 @@ export const TodoForm: React.FC = () => {
         disabled={isLoading}
         aria-label="Create new todo button"
       >
-        Create
+        {isLoading ? 'Loading' : 'Create'}
       </button>
     </form>
   );

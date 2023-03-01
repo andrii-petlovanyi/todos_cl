@@ -61,6 +61,7 @@ export const TodoItem: React.FC<ITodoProps> = ({
         title={title}
         status={status}
         task={task}
+        id={_id}
         changeStatusHandler={changeStatusHandler}
       />
     </>
