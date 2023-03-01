@@ -1,0 +1,32 @@
+.todo {
+  display: flex;
+  gap: 10px;
+  padding: 5px 10px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #c6cbd244;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 250ms ease;
+}
+
+.todo:hover,
+.todo:focus {
+  background-color: #b3b6bb44;
+}
+
+.todo__number {
+  padding: 0 10px;
+}
+
+.todo__task,
+.todo__title {
+  font-size: 16px;
+  text-align: left;
+}
+
+.todo__status {
+  margin-right: 10px;
+  transform: scale(1.2);
+  cursor: pointer;
+}

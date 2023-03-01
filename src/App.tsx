@@ -1,16 +1,15 @@
-import './App.css'
-import { useAllTodoListQuery } from './redux/todo/todoApiSlice'
+import { TodoForm } from './components/TodoForm/TodoForm';
+import { TodoList } from './components/TodoList/TodoList';
+import style from './style.module.css';
 
 function App() {
-
-  const { data } = useAllTodoListQuery()
-  console.log(data)
-
   return (
-    <div >
-      Hello, Andrii
-    </div>
-  )
+    <main className={style.main}>
+      <h1 className={style.main__title}>Simple todo</h1>
+      <TodoForm />
+      <TodoList />
+    </main>
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,27 @@
+.todo_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.todo_list__header {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #c6cbd2aa;
+}
+
+.todo_list__label {
+  font-weight: 700;
+  text-align: center;
+  padding: 0 10px;
+}

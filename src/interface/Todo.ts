@@ -1,8 +1,10 @@
 export interface ITodo {
-    id: string;
+    _id: string;
     title: string;
     task: string;
     status: boolean;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface IAddTodo {
@@ -13,3 +15,8 @@ export interface IAddTodo {
 export interface IUpdateStatus {
     status: boolean;
 }
+
+export interface ITodoList {
+    todoList: ITodo[]
+}
+
