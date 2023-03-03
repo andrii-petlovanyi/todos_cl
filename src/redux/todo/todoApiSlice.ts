@@ -2,6 +2,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IAddTodo, ITodo, ITodoList, IUpdateStatus } from '../../interface/Todo';
 import { API_URL } from '../../services/apiUrl';
 
+interface UpdateStatus {
+    message: string;
+    updatedTodo: ITodo
+}
+
 const todoApiSlice = createApi({
     reducerPath: 'todoApiSlice',
     baseQuery: fetchBaseQuery({
@@ -10,13 +15,13 @@ const todoApiSlice = createApi({
     keepUnusedDataFor: 30,
     tagTypes: ['todo'],
     endpoints: (builder) => ({
-        allTodoList: builder.query<ITodoList, void>({
+        allTodoList: builder.query<ITodoList | undefined, void>({
             query: () => `/`,
             keepUnusedDataFor: 30,
             providesTags: ['todo'],
         }),
 
-        deleteTodo: builder.mutation<void, string>({
+        deleteTodo: builder.mutation<void, string | undefined>({
             query: (todoId) => ({
                 url: `/${todoId}`,
                 method: 'DELETE',
@@ -33,7 +38,7 @@ const todoApiSlice = createApi({
             invalidatesTags: ['todo'],
         }),
 
-        updateTodoStatus: builder.mutation<ITodo, IUpdateStatus & { todoId: string }>({
+        updateTodoStatus: builder.mutation<UpdateStatus, IUpdateStatus & { todoId: string | undefined }>({
             query: ({ todoId, status }) => ({
                 url: `/${todoId}`,
                 method: 'PATCH',

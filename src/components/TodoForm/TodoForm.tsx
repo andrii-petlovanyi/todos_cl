@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { useAddTodoMutation } from '../../redux/todo/todoApiSlice';
 import cn from 'classnames';
 import style from './style.module.css';
-import { IAddTodo } from '../../interface/Todo';
 
 interface ITodoFormError {
   title?: boolean;
@@ -35,7 +34,7 @@ export const TodoForm: React.FC = () => {
     }
 
     try {
-      const res = await addTodo<IAddTodo>({
+      const res = await addTodo({
         title,
         task,
       });

@@ -7,6 +7,13 @@ export interface ITodo {
     updatedAt: Date;
 }
 
+export interface ITodoModal {
+    id: string;
+    title: string;
+    task: string;
+    status: boolean;
+}
+
 export interface IAddTodo {
     title: string;
     task: string;

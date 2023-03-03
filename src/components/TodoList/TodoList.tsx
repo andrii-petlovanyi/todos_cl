@@ -1,9 +1,14 @@
 import React from 'react';
+import { ITodoModal } from '../../interface/Todo';
 import { useAllTodoListQuery } from '../../redux/todo/todoApiSlice';
 import { TodoItem } from '../TodoItem/TodoItem';
 import style from './style.module.css';
 
-export const TodoList: React.FC = () => {
+interface ITodoListProps {
+  openModalHandler: (task: ITodoModal) => void;
+}
+
+export const TodoList: React.FC<ITodoListProps> = ({ openModalHandler }) => {
   const { data, isLoading } = useAllTodoListQuery();
 
   return (
@@ -18,7 +23,12 @@ export const TodoList: React.FC = () => {
         {!isLoading ? (
           data?.todoList?.length ? (
             data?.todoList?.map((todo, index) => (
-              <TodoItem key={todo._id} {...todo} index={index + 1} />
+              <TodoItem
+                key={todo._id}
+                {...todo}
+                index={index + 1}
+                openModalHandler={openModalHandler}
+              />
             ))
           ) : (
             <>...no todo in lists</>
