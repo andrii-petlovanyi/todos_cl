@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useAddTodoMutation } from '../../redux/todo/todoApiSlice';
-import { IAddTodo } from '../../interface/Todo';
 import cn from 'classnames';
 import style from './style.module.css';
+import { IAddTodo } from '../../interface/Todo';
 
 interface ITodoFormError {
   title?: boolean;
@@ -10,27 +10,22 @@ interface ITodoFormError {
 }
 
 export const TodoForm: React.FC = () => {
-  const initialForm = {
-    title: '',
-    task: '',
-  };
-  const [formData, setFormData] = useState<IAddTodo>(initialForm);
   const [formError, setFormError] = useState<ITodoFormError>();
+  const titleRef = useRef<HTMLInputElement>(null);
+  const taskRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [addTodo, { isLoading }] = useAddTodoMutation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    let title = titleRef.current?.value.trim() || '';
+    let task = taskRef.current?.value.trim() || '';
+
     const errors = {
-      title: formData.title.trim().length === 0,
-      task: formData.task.trim().length === 0,
+      title: title?.length === 0,
+      task: task?.length === 0,
     };
 
     setFormError(errors);
@@ -40,9 +35,12 @@ export const TodoForm: React.FC = () => {
     }
 
     try {
-      const res = await addTodo(formData);
+      const res = await addTodo<IAddTodo>({
+        title,
+        task,
+      });
       if ('data' in res) {
-        setFormData(initialForm);
+        formRef.current?.reset();
       }
     } catch (error) {
       console.log(error);
@@ -50,7 +48,7 @@ export const TodoForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handlerSubmit} className={style.form}>
+    <form onSubmit={e => handlerSubmit(e)} className={style.form} ref={formRef}>
       <div className={style.form__control}>
         <label className={style.form__label} htmlFor="title">
           Title:
@@ -61,8 +59,7 @@ export const TodoForm: React.FC = () => {
           })}
           id="title"
           name="title"
-          onChange={handleChange}
-          value={formData.title}
+          ref={titleRef}
         />
         <span className={style.form__error_message}>
           {formError?.title && 'This field is empty'}
@@ -79,8 +76,7 @@ export const TodoForm: React.FC = () => {
           })}
           id="task"
           name="task"
-          onChange={handleChange}
-          value={formData.task}
+          ref={taskRef}
         />
         <span className={style.form__error_message}>
           {formError?.task && 'This field is empty'}
